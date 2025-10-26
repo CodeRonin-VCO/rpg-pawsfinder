@@ -1,0 +1,40 @@
+.container_classes {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.class_card {
+    padding: 2rem;
+    margin: 1rem 0;
+    background-color: var(--bg-light);
+    border: .2rem solid var(--hover-light);
+    border-radius: .8rem;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    flex: 1 1 370px;
+
+    &:hover {
+        background-color: var(--hover-light);
+        border: .2rem solid var(--sep-yellow);
+    }
+}
+
+.selected_card {
+    background-color: var(--bg-blue);
+    border: .2rem solid var(--sep-yellow);
+}
+
+.logo {
+    width: 20%;
+    font-size: clamp(2rem, 2.3rem + 0.6vw, 3.2rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.info {
+    width: 70%;
+}

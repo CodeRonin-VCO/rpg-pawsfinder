@@ -1,0 +1,101 @@
+.page_title {
+    text-align: center;
+}
+
+.intro, .valider {
+    padding: 1.6rem;
+}
+
+.section {
+    max-width: 600px;
+    margin: 3rem auto;
+    padding: 3rem;
+    background-color: var(--bg-yellow);
+    border-radius: .8rem;
+
+    .title {
+        padding: 3.2rem 0;
+        color: var(--text-blue);
+        text-align: center;
+    }
+
+    p {
+        text-align: justify;
+    }
+}
+
+.highlight {
+    font-weight: 900;
+    color: var(--text-yellow);
+}
+
+.container_btn {
+    margin: 3rem auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+
+.chosen_avatar {
+    width: fit-content;
+    margin: 0 auto;
+
+    &>img {
+        width: 150px;
+        padding: 1rem;
+        border-radius: 2.4rem;
+        background-color: transparent;
+        border: .3rem solid var(--sep-yellow);
+    }
+}
+
+.stat_info {
+    padding: 2rem;
+
+    p {
+        margin: 1.6rem 0;
+        display: flex;
+        justify-content: space-between;
+
+        &>strong {
+            width: 100%;
+            text-align: center;
+            display: inline-block;
+        }
+
+        &>span {
+            display: inline-block;
+        }
+    }
+
+    .vie_container,
+    .mana_container {
+        width: 100%;
+        height: 1.6rem;
+    }
+
+    .vie_bar,
+    .mana_bar {
+        width: 100%;
+        height: 100%;
+        border-radius: 3.2rem;
+    }
+
+    .vie_bar {
+        background-color: #38b000;
+    }
+
+    .mana_bar {
+        background-color: #b5179e;
+    }
+
+}
+
+.container_link {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+}

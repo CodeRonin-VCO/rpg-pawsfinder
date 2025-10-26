@@ -1,0 +1,22 @@
+
+
+
+.container_avatars {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.avatars_choice {
+    padding: 1rem;
+    border-radius: 2.4rem;
+    background-color: transparent;
+    border: .3rem solid transparent;
+    cursor: pointer;
+}
+
+.selected_avatar {
+    border: .3rem solid var(--sep-yellow);
+    transition: .3s all ease-in-out;
+    transform: scale(0.9);
+}

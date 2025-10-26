@@ -1,16 +1,87 @@
 :root {
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  /* color */
+  --text: #E5E6E4;
+  --text-yellow: #FAA957;
+  --text-blue: #7FBED5;
+  --text-dark: #012A36;
+
+  /* bgc */
+  --bg: #31081F;
+  --bg-yellow: #241D17;
+  --bg-blue: #0C252D;
+  --bg-light: #2b252d;
+
+  /* hover */
+  --hover-light: #403b42;
+
+  /* Interactive components */
+  --ic-yellow: #fdb468;
+  --ic-blue: #062F3B;
+
+  /* Borders and separators */
+  --sep-yellow: #96622C;
+  --sep-blue: #2B6B80;
+
+  /* Solid colors */
+  --solid-yellow: #f18f01;
+  --solid-blue: #39788D;
+
+  /* Semantic colors */
+  --success: #22946e;
+  --warning: #a87a2a;
+  --error: #9c2121;
+  --info: #21498a;
+
+  /* couleur sup */
+  --sup-1: #C52233;
+  --sup-2: #012A36;
+
+
+  color: var(--text);
+  background-color: var(--bg);
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-}
 .page {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+button {
+  color: var(--text-dark);
+  background-color: var(--solid-yellow);
+  border: none;
+  border-radius: .8rem;
+  transition: .6s all ease-in-out;
+
+  &:hover {
+    border-radius: 2.5rem;
+  }
+}
+
+a, Link {
+  width: fit-content;
+  padding-block: clamp(0.8rem, 1rem + 0.5vw, 1.6rem);
+  padding-inline: clamp(1.6rem, 2rem + 1vw, 3.2rem);
+  color: var(--text-yellow);
+  text-decoration: none;
+  background-color: var(--bg-yellow);
+  border-radius: .8rem;
+  position: relative;
+
+  &::before {
+    content: "";
+    height: 2px;
+    width: 15%;
+    background-color: var(--text-yellow);
+    position: absolute;
+    bottom: 15%;
+    left: 15%;
+    transition: .3s all ease-in-out;
+  }
+
+  &:hover::before {
+    width: 70%;
+  }
+
 }
