@@ -1,0 +1,55 @@
+/* ---- 1. Box model et marges ---- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+/* ---- 2. Activer les animations par mot-clé (auto => px) ---- */
+@media (prefers-reduced-motion: no-preference) {
+    html { interpolate-size: allow-keywords; }
+}
+
+/* ---- 3. Taille de base et défilement ---- */
+html {
+    font-size: 62.5%; /* => 1rem=10px */
+    scroll-behavior: smooth;
+    scrollbar-gutter: stable;
+}
+
+body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    font-size: clamp(1.2rem, 1.4rem + 0.5vw, 1.8rem);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+button, .btn {
+  padding-block: clamp(0.8rem, 1rem + 0.5vw, 1.6rem);   /* vertical */
+  padding-inline: clamp(1.6rem, 2rem + 1vw, 3.2rem);    /* horizontal */
+}
+
+/* ---- 4. Médias et formulaires ---- */
+:where(img, picture, video, canvas, svg) {
+    display: block;
+    max-width: 100%;
+}
+:where(input, button, textarea, select, fieldset, legend) { 
+    font: inherit;
+    font-size: clamp(1.2rem, 1.4rem + 0.5vw, 1.8rem);
+}
+
+/* ---- 5. Texte ---- */
+:where(p, h1, h2, h3, h4, h5, h6) { overflow-wrap: break-word; }
+:where(h1, h2, h3, h4, h5, h6) { text-wrap: balance; }
+p  { text-wrap: pretty; }
+h1 { font-size: clamp(3.6rem, 4rem   + 1.2vw, 6.4rem); }     
+h2 { font-size: clamp(3rem,   3.4rem + 1vw,   5.1rem); }       
+h3 { font-size: clamp(2.4rem, 2.8rem + 0.8vw, 4rem);   }   
+h4 { font-size: clamp(2rem,   2.3rem + 0.6vw, 3.2rem); }    
+h5 { font-size: clamp(1.6rem, 1.8rem + 0.4vw, 2.6rem); }  
+h6 { font-size: clamp(1.4rem, 1.6rem + 0.2vw, 2rem);   } 
+
+/* ---- 6. Contexte d'empilement pour React/Next.js ---- */
+:where(#root, #__next) {
+    isolation: isolate;
+}
