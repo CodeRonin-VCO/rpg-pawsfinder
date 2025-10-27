@@ -1,19 +1,20 @@
 import styles from "./avatars.module.css";
 // Import des avatars
-import fourmi from "/public/avatars/fourmi.png";
-import grenouille from "/public/avatars/grenouille.png";
-import pigeon from "/public/avatars/pigeon.png";
-import poisson from "/public/avatars/poisson.png";
-import poule from "/public/avatars/poule.png";
-import serpent from "/public/avatars/serpent.png";
-import taureau from "/public/avatars/taureau.png";
-import chouette from "/public/avatars/chouette.png";
-import crabe from "/public/avatars/crabe.png";
-import paresseux from "/public/avatars/paresseux.png";
+import fourmi from "./../../../../assets/avatars/fourmi.png";
+import grenouille from "./../../../../assets/avatars/grenouille.png";
+import pigeon from "./../../../../assets/avatars/pigeon.png";
+import poisson from "./../../../../assets/avatars/poisson.png";
+import poule from "./../../../../assets/avatars/poule.png";
+import serpent from "./../../../../assets/avatars/serpent.png";
+import taureau from "./../../../../assets/avatars/taureau.png";
+import chouette from "./../../../../assets/avatars/chouette.png";
+import crabe from "./../../../../assets/avatars/crabe.png";
+import paresseux from "./../../../../assets/avatars/paresseux.png";
 
 export default function AvatarsCards({ onAvatarsCard, selectedAvatar }) {
     const avatars = [fourmi, grenouille, pigeon, poisson, poule, serpent, taureau, chouette, crabe, paresseux];
 
+    // fixme: changer les images du dosser public vers le dossier assets (pas d'import depuis public)
 
     return (
         <div className={styles.container_avatars}>

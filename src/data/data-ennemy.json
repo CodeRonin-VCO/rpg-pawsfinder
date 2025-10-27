@@ -2,7 +2,7 @@
     "ennemies": [
         {
             "id": 1,
-            "avatar": "/public/ennemy/bourrator.jpg",
+            "avatar": "/ennemy/bourrator.png",
             "nom": "Bourrator",
             "classe": "boss",
             "force": 18,
@@ -39,7 +39,7 @@
         },
         {
             "id": 2,
-            "avatar": "/public/ennemy/bourr-underling.jpg",
+            "avatar": "/ennemy/bourr-underling.png",
             "nom": "Sous-fifre de Bourrator",
             "classe": "minion",
             "force": 6,
@@ -75,7 +75,7 @@
         },
         {
             "id": 3,
-            "avatar": "/public/ennemy/bourr-underling.jpg",
+            "avatar": "/ennemy/bourr-underling.png",
             "nom": "Sous-fifre de Bourrator",
             "classe": "minion",
             "force": 6,
@@ -111,7 +111,7 @@
         },
         {
             "id": 4,
-            "avatar": "/public/ennemy/creature.jpg",
+            "avatar": "/ennemy/creature.png",
             "nom": "Créature du Bouc",
             "classe": "minion",
             "force": 5,
@@ -147,7 +147,7 @@
         },
         {
             "id": 5,
-            "avatar": "/public/ennemy/creature.jpg",
+            "avatar": "/ennemy/creature.png",
             "nom": "Créature du Bouc",
             "classe": "minion",
             "force": 5,
@@ -183,7 +183,7 @@
         },
         {
             "id": 6,
-            "avatar": "/public/ennemy/malbouc.jpg",
+            "avatar": "/ennemy/malbouc.png",
             "nom": "Malbouc",
             "classe": "boss",
             "force": 10,
@@ -220,7 +220,7 @@
         },
         {
             "id": 7,
-            "avatar": "/public/ennemy/Krackplume .jpg",
+            "avatar": "/ennemy/Krackplume .png",
             "nom": "Krackplume",
             "classe": "boss",
             "force": 16,
@@ -257,7 +257,7 @@
         },
         {
             "id": 8,
-            "avatar": "/public/ennemy/krack-minion.jpg",
+            "avatar": "/ennemy/krack-minion.png",
             "nom": "Minion du Canard",
             "classe": "minion",
             "force": 7,
@@ -293,7 +293,7 @@
         },
         {
             "id": 9,
-            "avatar": "/public/ennemy/krack-minion.jpg",
+            "avatar": "/ennemy/krack-minion.png",
             "nom": "Minion du Canard",
             "classe": "minion",
             "force": 7,
@@ -329,7 +329,7 @@
         },
         {
             "id": 10,
-            "avatar": "/public/ennemy/tuskadon.jpg",
+            "avatar": "/ennemy/tuskadon.png",
             "nom": "Tuskadon",
             "classe": "boss",
             "force": 20,

@@ -60,7 +60,7 @@ export default function HomeRoute() {
 
         setErrorMsg("");
         setPlayerCharacter(playerBuild);
-        navigate("/level1");
+        navigate("/config");
 
         // Todo: debug
         console.log("player info dans handleSubmit", playerBuild);
