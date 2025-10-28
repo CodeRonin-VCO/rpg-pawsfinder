@@ -17,17 +17,23 @@
     padding: 1.6rem 0;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    position: relative;
 
     .dialog {
         height: 130px;
+        padding: 1.6rem;
         color: var(--text-dark);
         font-weight: 700;
         backdrop-filter: blur(5px);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
 
-        .color_en {
+        .log_en {
             color: var(--info);
+            text-align: right;
         }
+
     }
 
     .animation_zone {
@@ -35,7 +41,8 @@
         display: flex;
         position: relative;
 
-        .player, .ennemy {
+        .player,
+        .ennemy {
             width: 30%;
             position: absolute;
             bottom: 0;
@@ -51,10 +58,147 @@
     }
 
     .control_panel {
-        height: 195px;
         padding: 1.6rem;
+        background-color: var(--bg-yellow);
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 1.6rem;
+        position: absolute;
+        bottom: -130px;
+        left: 0;
+        right: 0;
+
+        .stat_container {
+            padding: 1rem;
+            font-size: clamp(.8rem, 1rem + 0.5vw, 1.4rem);
+            background-color: var(--hover-gray);
+            backdrop-filter: blur(15px);
+            border-radius: .8rem;
+
+            p {
+                margin: .5rem 0;
+                display: flex;
+                justify-content: space-between;
+
+                &>strong {
+                    margin: auto;
+                    color: var(--text-yellow);
+                }
+            }
+        }
+
+        .vie_container,
+        .mana_container {
+            width: 100%;
+            height: 1rem;
+            border-radius: 3.2rem;
+        }
+
+        .vie_bar,
+        .mana_bar {
+            width: 100%;
+            height: 100%;
+            border-radius: 3.2rem;
+            transition: width 0.3s ease;
+        }
+
+        .vie_bar {
+            background-color: #38b000;
+        }
+
+        .mana_bar {
+            background-color: #b5179e;
+        }
+    }
+}
+
+
+
+
+.attack {
+    animation: attackAnim .5s ease-in-out backwards;
+    transform: scale(1.2);
+}
+
+.criticalAttack {
+    animation: criticalAnim 0.5s ease-in-out backwards;
+    transform: scale(1.2);
+}
+
+.escape {
+    animation: escapeAnim .5s ease-in-out backwards;
+    transform: scale(1.2);
+}
+
+.magicAttack {
+    animation: magicAnim .5s ease-in-out backwards;
+    transform: scale(1.2);
+}
+
+.counter {
+    animation: counter .5s ease-in-out backwards;
+    transform: scale(1.2);
+}
+
+.countCrit {
+    animation: countCritAnim 0.5s ease-in-out backwards;
+    transform: scale(1.2);
+}
+
+.countMag {
+    animation: countMagAnim .5s ease-in-out backwards;
+    transform: scale(1.2);
+}
+
+.popup {
+    width: 100%;
+    height: 100%;
+    background: var(--hover-gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.popup_content {
+    width: 80%;
+    padding: 2rem;
+    text-align: center;
+    background: var(--bg-blue);
+    border-radius: 10px;
+    animation: fadeIn 0.5s ease;
+
+    button {
+        margin-top: 2rem;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes attackAnim {
+    0% {
+        transform: rotate(-45deg) translateX(0);
+    }
+
+    33% {
+        transform: rotate(-45deg);
+    }
+
+    100% {
+        transform: rotate(0) translateX(170px);
     }
 }

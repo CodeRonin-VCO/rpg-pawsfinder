@@ -1,5 +1,9 @@
 
 
 export function getRandom(array) {
-    return array[Math.floor(Math.random() * array.length)]
-};
+    if (!Array.isArray(array) || array.length === 0) return "…";
+
+    const index = Math.floor(Math.random() * array.length);
+    
+    return array[index];
+}

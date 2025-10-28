@@ -13,6 +13,7 @@
 
   /* hover */
   --hover-light: #403b42;
+  --hover-gray: #ffffff40;
 
   /* Interactive components */
   --ic-yellow: #fdb468;
@@ -35,6 +36,8 @@
   /* couleur sup */
   --sup-1: #C52233;
   --sup-2: #012A36;
+  --sup-green: #38b000;
+  --sup-purple: #b5179e;
 
 
   color: var(--text);

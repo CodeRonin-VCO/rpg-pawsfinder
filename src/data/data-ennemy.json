@@ -35,7 +35,8 @@
             "attackSpeName": "Tranche-Bourrain",
             "attackSpe": 18,
             "attackSpeNb": 3,
-            "potions": 2
+            "potions": 2,
+            "isPlayer": false
         },
         {
             "id": 2,
@@ -71,7 +72,8 @@
             },
             "attackSpeName": "Coup de groin",
             "attackSpe": 10,
-            "attackSpeNb": 1
+            "attackSpeNb": 1,
+            "isPlayer": false
         },
         {
             "id": 3,
@@ -107,7 +109,8 @@
             },
             "attackSpeName": "Coup de groin",
             "attackSpe": 10,
-            "attackSpeNb": 1
+            "attackSpeNb": 1,
+            "isPlayer": false
         },
         {
             "id": 4,
@@ -143,7 +146,8 @@
             },
             "attackSpeName": "Souffle fétide",
             "attackSpe": 12,
-            "attackSpeNb": 1
+            "attackSpeNb": 1,
+            "isPlayer": false
         },
         {
             "id": 5,
@@ -179,7 +183,8 @@
             },
             "attackSpeName": "Souffle fétide",
             "attackSpe": 12,
-            "attackSpeNb": 1
+            "attackSpeNb": 1,
+            "isPlayer": false
         },
         {
             "id": 6,
@@ -216,7 +221,8 @@
             "attackSpeName": "Invocation des os",
             "attackSpe": 20,
             "attackSpeNb": 3,
-            "potions": 2
+            "potions": 2,
+            "isPlayer": false
         },
         {
             "id": 7,
@@ -253,7 +259,8 @@
             "attackSpeName": "Plongeon furieux",
             "attackSpe": 17,
             "attackSpeNb": 3,
-            "potions": 2
+            "potions": 2,
+            "isPlayer": false
         },
         {
             "id": 8,
@@ -289,7 +296,8 @@
             },
             "attackSpeName": "Coup de bec",
             "attackSpe": 9,
-            "attackSpeNb": 1
+            "attackSpeNb": 1,
+            "isPlayer": false
         },
         {
             "id": 9,
@@ -325,7 +333,8 @@
             },
             "attackSpeName": "Coup de bec",
             "attackSpe": 9,
-            "attackSpeNb": 1
+            "attackSpeNb": 1,
+            "isPlayer": false
         },
         {
             "id": 10,
@@ -362,7 +371,8 @@
             "attackSpeName": "Charge titanesque",
             "attackSpe": 20,
             "attackSpeNb": 3,
-            "potions": 2
+            "potions": 2,
+            "isPlayer": false
         }
     ]
 }
