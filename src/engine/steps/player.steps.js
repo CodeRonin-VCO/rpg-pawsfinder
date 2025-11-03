@@ -73,22 +73,24 @@ export function escapedCheck(ctx) {
     // Ajouter un log de debug automatique
     ctx.log.push("Étape: escapedCheck");
 
-    const escaped = Math.random() < (ctx.defender.dexterite / 10);
+    ctx.events = ctx.events || [];
+
+    const escaped = Math.random() < (ctx.defender.dexterite / 100);
     if (escaped) {
         ctx.log.push("Résultat: esquive réussie");
 
-        return {
-            ...ctx,
-            escaped: true,
-            interrupt: true,
-            events: [
-                { type: "animation", payload: "escaped", target: "defender" },
-                { type: "dialog", payload: getRandom(ctx.defender.dialogues?.esquive), speaker: "defender" }
-            ]
-        };
-    }
+        const esquiveLine = getRandom(ctx.defender.dialogues?.esquive);
+        const finalLine = esquiveLine ? `${esquiveLine} [esquive]` : `[esquive]`;
 
-    ctx.log.push("Résultat: esquive échouée");
+        ctx.escaped = true;
+        ctx.interrupt = false;
+        ctx.events.push(
+            { type: "animation", payload: "escaped", target: "defender", delay: 500 },
+            { type: "dialog", payload: finalLine, speaker: "defender" }
+        );
+    } else {
+        ctx.log.push("Résultat: esquive échouée");
+    }
 
     return ctx;
 }
@@ -126,20 +128,33 @@ export function applyDamage(ctx) {
             : isCritical
                 ? "critical"
                 : ctx.type === "attackSpe"
-                    ? "attaqueSpe"
+                    ? "attackSpe"
                     : "force"
 
-    // todo: debug
-    console.log("Animation déclenchée :", animationType);
+    const baseDialogues = attacker.dialogues?.base || [];
+    const attackLine = getRandom(baseDialogues);
+    const finalAttackLine = attackLine ? `${attackLine} [attaque - dégâts: ${damage}]` : `[attaque - dégâts: ${damage}]`;
+
+    // === Dialogue de réaction (defender) ===
+    let reactionLine = "";
+    if (newVie === 0) {
+        const deathDialogues = defender.dialogues?.mort || [];
+        const line = getRandom(deathDialogues);
+        reactionLine = line ? `${line} [mort]` : `[mort]`;
+    } else {
+        const reactionDialogues = defender.dialogues?.blessure || [];
+        const line = getRandom(reactionDialogues);
+        reactionLine = line ? `${line} [blessure -${damage} dégâts]` : `[blessure -${damage} dégâts]`;
+    }
 
     return {
         ...ctx,
         defender: updatedDefender,
         events: [
             ...(ctx.events || []),
-            { type: "dialog", payload: `${attacker.nom} fait ${damage} dégâts à ${defender.nom}`, speaker: "attacker" },
-            { type: "animation", payload: animationType, target: "defender", delay: 0 },
-            { type: "dialog", payload: (isCritical) ? getRandom(defender.dialogues?.blessure) : getRandom(defender.dialogues?.base), delay: 3000, speaker: "defender" },
+            { type: "dialog", payload: finalAttackLine, speaker: "attacker" },
+            { type: "animation", payload: animationType, target: "attacker", delay: 500 },
+            { type: "dialog", payload: reactionLine, delay: 3000, speaker: "defender" },
         ]
     };
 }
@@ -168,16 +183,16 @@ export function heal(ctx) {
         potions: attacker.potions - 1
     };
 
+    ctx.attacker = updatedAttacker;
     ctx.log.push(`Soin effectué: +${healedAmount} PV (vie actuelle: ${newVie})`);
 
-    return {
-        ...ctx,
-        attacker: updatedAttacker,
-        events: [
-            { type: "dialog", payload: `${attacker.nom} utilise une potion !`, speaker: "attacker" },
-            { type: "animation", payload: "heal" }
-        ]
-    };
+    ctx.events = [
+        ...(ctx.events || []),
+        { type: "dialog", payload: `${attacker.nom} utilise une potion !`, speaker: "attacker" },
+        { type: "animation", payload: "heal", target: "attacker", delay: 500 }
+    ];
+
+    return ctx;
 }
 
 // ==== dialogs ====
@@ -192,7 +207,6 @@ export function generateDialog(ctx, message, delay = 3000, speaker = "attacker")
         setter("");
     }, delay);
 }
-
 
 // ==== Animations ====
 export function animateCharacter(ctx, type, target = "attacker") {
@@ -212,18 +226,18 @@ export function endMatchCheck(ctx) {
     if (ennemyDead) {
         ctx.log.push("Fin du match: victoire du joueur");
         ctx.onEndMatch?.("Victoire");
-        return { ...ctx, matchEnded: true, matchResult: "Victoire" };
+        ctx.matchEnded = true;
+        ctx.matchResult = "Victoire"
     }
     if (playerDead) {
         ctx.log.push("Fin du match: défaite du joueur");
         ctx.onEndMatch?.("Défaite");
-        return { ...ctx, matchEnded: true, matchResult: "Défaite" };
+        ctx.matchEnded = true;
+        ctx.matchResult = "Défaite"
     }
 
     ctx.log.push(`Check fin de match → joueur: ${player.nom} (${player.vie}), ennemi: ${ennemy.nom} (${ennemy.vie})`);
     ctx.log.push(`Fin de match détectée → matchResult: ${ctx.matchResult}`);
-    console.log("setMatchResult appelé avec :", ctx.matchResult);
-
 
     return ctx;
 }

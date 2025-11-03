@@ -33,12 +33,9 @@ export default function Level2Route() {
                 {count > 0 && count < 9 && (
                     <article className={styles.discussion}>
                         {count === 1 && (
-                            <h3 className={styles.title}>Rencontre</h3>
-                        )}
-                        {count === 2 && (
                             <p className={styles.dialog}>(Les brigands surgissent des fourrés, encerclant {player.nom}. Bourrator crache par terre.)</p>
                         )}
-                        {count === 3 && (
+                        {count === 2 && (
                             <div className={styles.dialog}>
                                 <p className={styles.color_ennemy}><strong>Bourrator:</strong></p>
                                 <p> « Eh ben, qu’est-ce qu’on a là ? Un.e {extractImageName(player.avatar)} égaré.e qui croit être un héros ? »</p>
@@ -46,19 +43,19 @@ export default function Level2Route() {
                                 <p>« T’as de l’or, {extractImageName(player.avatar)} ? Ou juste des rêves trop grands pour ta carcasse ? »</p>
                             </div>
                         )}
-                        {count === 4 && (
+                        {count === 3 && (
                             <div className={`${styles.dialog} ${styles.dial_player}`}>
                                 <p><strong className={styles.color}>{player.nom}:</strong></p>
                                 <p> « Je ne cherche pas la bagarre. Laissez-moi passer, et je ne vous causerai aucun ennui. »</p>
                             </div>
                         )}
-                        {count === 5 && (
+                        {count === 4 && (
                             <div className={styles.dialog}>
                                 <p className={styles.color_ennemy}><strong>Sous-fifre 1</strong> (ricanant) :</p>
                                 <p> « Ohhh, il “ne cherche pas la bagarre” ! Bourrator, t’as entendu ? Il veut jouer au gentil ! »</p>
                             </div>
                         )}
-                        {count === 6 && (
+                        {count === 5 && (
                             <div className={styles.dialog}>
                                 <p className={styles.color_ennemy}><strong>Bourrator</strong> :</p>
                                 <p> « Écoute-moi bien, {extractImageName(player.avatar)}. Ici, c’est MA route. Et pour passer, y’a deux options : » </p>
@@ -136,7 +133,7 @@ export default function Level2Route() {
 
                 <div className={styles.container_btn}>
                     {count < 8 && (
-                        <button key={count} onClick={() => { setCount(prev => prev + 1) }}>Continuer</button>
+                        <button key={count} onClick={() => { setCount(prev => prev + 1) }} disabled={count === 7 && answerClick === null}>Continuer</button>
                     )}
                     {count === 8 && (
                         <button onClick={() => { setCount(prev => prev + 1) }}>Combattre</button>

@@ -32,11 +32,7 @@ export function aiActions(ennemy) {
     });
 
     const randomAttack = getRandom(attackOptions.length ? attackOptions : ["force"]);
-
     actions.push({ type: "attack", methode: randomAttack });
-
-    // todo: debug
-    console.log("Action IA choisie :", actions[0]);
 
     return actions;
 }

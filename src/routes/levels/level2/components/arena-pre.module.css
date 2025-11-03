@@ -20,7 +20,9 @@
     position: relative;
 
     .dialog {
+        width: 95%;
         height: 130px;
+        margin: 0 auto;
         padding: 1.6rem;
         color: var(--text-dark);
         font-weight: 700;
@@ -46,6 +48,11 @@
             width: 30%;
             position: absolute;
             bottom: 0;
+            will-change: transform;
+
+            @media screen and (min-width:960px) {
+                width: 15%;
+            }
         }
 
         .player {
@@ -117,37 +124,105 @@
 
 .attack {
     animation: attackAnim .5s ease-in-out backwards;
-    transform: scale(1.2);
+
+    @media screen and (min-width:960px) {
+        animation: attackAnimDesktop .5s ease-in-out backwards;
+    }
 }
 
 .criticalAttack {
     animation: criticalAnim 0.5s ease-in-out backwards;
-    transform: scale(1.2);
+
+    @media screen and (min-width:960px) {
+        animation: criticalAnimDesktop .5s ease-in-out backwards;
+    }
 }
 
 .escape {
     animation: escapeAnim .5s ease-in-out backwards;
-    transform: scale(1.2);
 }
 
-.magicAttack {
-    animation: magicAnim .5s ease-in-out backwards;
-    transform: scale(1.2);
+.magicRay,
+.magicRayEnnemy {
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle, #00f 0%, transparent 70%);
+    border-radius: 50%;
+    opacity: 0;
+    pointer-events: none;
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform-origin: center;
+    will-change: transform;
+    animation: magicRayAnim 0.6s ease-out .1s forwards;
+    z-index: 1000;
+
+    @media screen and (min-width:960px) {
+        animation: magicRayAnimDesktop 0.6s ease-out .1s forwards;
+    }
+
+}
+
+.magicRayEnnemy {
+    left: 0;
+    animation: magicRayAnimEnnemy 0.6s ease-out .1s forwards;
+
+    @media screen and (min-width:960px) {
+        animation: magicRayAnimEnnemyDesktop 0.6s ease-out .1s forwards;
+    }
+}
+
+.attackSpe {
+    animation: attackSpe 0.5s ease-out 0.3s backwards;
+
+    @media screen and (min-width:960px) {
+        animation: attackSpeDesktop 0.5s ease-out 0.3s backwards;
+    }
+}
+
+.countSpe {
+    animation: attackSpeEnnemy 0.5s ease-out 0.3s backwards;
+
+    @media screen and (min-width:960px) {
+        animation: attackSpeEnnemyDesktop 0.5s ease-out 0.3s backwards;
+    }
+}
+
+.attackSpeGlow,
+.attackSpeGlowEnnemy {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    transform-origin: bottom center;
+    width: 100px;
+    height: 180px;
+    background: radial-gradient(ellipse at center, orange 0%, transparent 80%);
+    opacity: 0;
+    z-index: 1;
+    animation: attackSpeAnim 0.4s ease-out forwards;
 }
 
 .counter {
     animation: counter .5s ease-in-out backwards;
-    transform: scale(1.2);
+
+    @media screen and (min-width:960px) {
+        animation: counterDesktop .5s ease-in-out backwards;
+    }
 }
 
 .countCrit {
     animation: countCritAnim 0.5s ease-in-out backwards;
-    transform: scale(1.2);
+
+    @media screen and (min-width:960px) {
+        animation: countCritAnimDesktop 0.5s ease-in-out backwards;
+    }
 }
 
-.countMag {
-    animation: countMagAnim .5s ease-in-out backwards;
-    transform: scale(1.2);
+.healAnimation {
+    animation: healAnimation 0.5s ease-in-out backwards;
 }
 
 .popup {
@@ -191,14 +266,446 @@
 
 @keyframes attackAnim {
     0% {
-        transform: rotate(-45deg) translateX(0);
+        transform: rotate(0deg) translateX(0);
+        filter: brightness(1);
     }
 
-    33% {
-        transform: rotate(-45deg);
+    30% {
+        transform: rotate(-20deg) translateX(60px);
+        filter: brightness(1.2);
+    }
+
+    60% {
+        transform: rotate(0deg) translateX(170px);
+        filter: brightness(1.5);
     }
 
     100% {
-        transform: rotate(0) translateX(170px);
+        transform: rotate(0deg) translateX(0);
+        filter: brightness(1);
+    }
+}
+
+@keyframes magicRayAnim {
+    0% {
+        transform: translateY(-50%) translateX(0) scale(1);
+        opacity: 1;
+        box-shadow: 0 0 10px #00f;
+    }
+
+    50% {
+        transform: translateY(-50%) translateX(85px) scale(2);
+        opacity: 1;
+        box-shadow: 0 0 20px #00f;
+    }
+
+    100% {
+        transform: translateY(-50%) translateX(170px) scale(2.5);
+        opacity: 0;
+        box-shadow: 0 0 0px #00f;
+    }
+}
+
+@keyframes attackSpeAnim {
+    0% {
+        transform: translateX(-50%) scaleY(0.1);
+        opacity: 0;
+        filter: brightness(1);
+    }
+
+    40% {
+        transform: translateX(-50%) scaleY(0.6);
+        opacity: 0.6;
+        filter: brightness(1.2);
+    }
+
+    70% {
+        transform: translateX(-50%) scaleY(1.2);
+        opacity: 1;
+        filter: brightness(1.5);
+    }
+
+    100% {
+        transform: translateX(-50%) scaleY(1.6);
+        opacity: 0;
+        filter: brightness(1);
+    }
+}
+
+@keyframes attackSpe {
+    0% {
+        transform: translateX(0) scale(1);
+        filter: brightness(1);
+    }
+
+    30% {
+        transform: translateX(50px) scale(1.1);
+        filter: brightness(1.2);
+    }
+
+    60% {
+        transform: translateX(170px) scale(1.2);
+        filter: brightness(1.5);
+    }
+
+    100% {
+        transform: translateX(0) scale(1);
+        filter: brightness(1);
+    }
+}
+
+@keyframes criticalAnim {
+    0% {
+        transform: scale(1) translateX(0);
+        opacity: 1;
+    }
+
+    30% {
+        transform: scale(1.4) translateX(0);
+    }
+
+    60% {
+        transform: scale(1.2) translateX(170px);
+    }
+
+    80% {
+        transform: scale(1.3) translateX(150px);
+    }
+
+    100% {
+        transform: scale(1) translateX(0);
+    }
+
+}
+
+@keyframes escapeAnim {
+    0% {
+        opacity: 1;
+    }
+
+    75% {
+        opacity: 0.3;
+    }
+
+    100% {
+        opacity: 0.3;
+    }
+}
+
+@keyframes healAnimation {
+    0% {
+        transform: scale(1) translateY(0);
+        box-shadow: 0 0 0px #0f0;
+        opacity: 0.8;
+    }
+
+    30% {
+        transform: scale(1.2) translateY(-10px);
+        box-shadow: 0 0 20px #0f0;
+        opacity: 1;
+    }
+
+    60% {
+        transform: scale(1.1) translateY(-5px);
+        box-shadow: 0 0 10px #0f0;
+    }
+
+    100% {
+        transform: scale(1) translateY(0);
+        box-shadow: 0 0 0px #0f0;
+        opacity: 0.9;
+    }
+}
+
+/* ---- Ennemi anim ---- */
+
+@keyframes counter {
+    0% {
+        transform: rotate(0deg) translateX(0);
+        filter: brightness(1);
+    }
+
+    30% {
+        transform: rotate(20deg) translateX(-60px);
+        filter: brightness(1.2);
+    }
+
+    60% {
+        transform: rotate(0deg) translateX(-170px);
+        filter: brightness(1.5);
+    }
+
+    100% {
+        transform: rotate(0deg) translateX(0);
+        filter: brightness(1);
+    }
+}
+
+@keyframes magicRayAnimEnnemy {
+    0% {
+        transform: translateY(50%) translateX(0) scale(1);
+        opacity: 1;
+        box-shadow: 0 0 10px #00f;
+    }
+
+    50% {
+        transform: translateY(50%) translateX(-85px) scale(2);
+        opacity: 1;
+        box-shadow: 0 0 20px #00f;
+    }
+
+    100% {
+        transform: translateY(50%) translateX(-170px) scale(2.5);
+        opacity: 0;
+        box-shadow: 0 0 0px #00f;
+    }
+}
+
+@keyframes attackSpeEnnemy {
+    0% {
+        transform: translateX(0) scale(1);
+        filter: brightness(1);
+    }
+
+    30% {
+        transform: translateX(-50px) scale(1.1);
+        filter: brightness(1.2);
+    }
+
+    60% {
+        transform: translateX(-170px) scale(1.2);
+        filter: brightness(1.5);
+    }
+
+    100% {
+        transform: translateX(0) scale(1);
+        filter: brightness(1);
+    }
+}
+
+@keyframes attackSpeAnimEnnemy {
+    0% {
+        transform: translateX(50%) scaleY(0.1);
+        opacity: 0;
+        filter: brightness(1);
+    }
+
+    40% {
+        transform: translateX(50%) scaleY(0.6);
+        opacity: 0.6;
+        filter: brightness(1.2);
+    }
+
+    70% {
+        transform: translateX(50%) scaleY(1.2);
+        opacity: 1;
+        filter: brightness(1.5);
+    }
+
+    100% {
+        transform: translateX(50%) scaleY(1.6);
+        opacity: 0;
+        filter: brightness(1);
+    }
+}
+
+@keyframes countCritAnim {
+    0% {
+        transform: scale(1) translateX(0);
+        opacity: 1;
+    }
+
+    30% {
+        transform: scale(1.2) translateX(0);
+    }
+
+    60% {
+        transform: scale(1.1) translateX(-170px);
+    }
+
+    80% {
+        transform: scale(1.2) translateX(-150px);
+    }
+
+    100% {
+        transform: scale(1) translateX(0);
+    }
+}
+
+/* ---- Desktop ---- */
+@keyframes attackAnimDesktop {
+    0% {
+        transform: rotate(0deg) translateX(0);
+        filter: brightness(1);
+    }
+
+    30% {
+        transform: rotate(-20deg) translateX(200px);
+        filter: brightness(1.2);
+    }
+
+    60% {
+        transform: rotate(0deg) translateX(600px);
+        filter: brightness(1.5);
+    }
+
+    100% {
+        transform: rotate(0deg) translateX(0);
+        filter: brightness(1);
+    }
+}
+
+@keyframes magicRayAnimDesktop {
+    0% {
+        transform: translateY(-50%) translateX(0) scale(1);
+        opacity: 1;
+        box-shadow: 0 0 10px #00f;
+    }
+
+    50% {
+        transform: translateY(-50%) translateX(300px) scale(2);
+        opacity: 1;
+        box-shadow: 0 0 20px #00f;
+    }
+
+    100% {
+        transform: translateY(-50%) translateX(600px) scale(2.5);
+        opacity: 0;
+        box-shadow: 0 0 0px #00f;
+    }
+}
+
+@keyframes attackSpeDesktop {
+    0% {
+        transform: translateX(0) scale(1);
+        filter: brightness(1);
+    }
+
+    30% {
+        transform: translateX(200px) scale(1.1);
+        filter: brightness(1.2);
+    }
+
+    60% {
+        transform: translateX(600px) scale(1.2);
+        filter: brightness(1.5);
+    }
+
+    100% {
+        transform: translateX(0) scale(1);
+        filter: brightness(1);
+    }
+}
+
+@keyframes criticalAnimDesktop {
+    0% {
+        transform: scale(1) translateX(0);
+        opacity: 1;
+    }
+
+    30% {
+        transform: scale(1.4) translateX(0);
+    }
+
+    60% {
+        transform: scale(1.2) translateX(600px);
+    }
+
+    80% {
+        transform: scale(1.3) translateX(500px);
+    }
+
+    100% {
+        transform: scale(1) translateX(0);
+    }
+
+}
+
+/* ---- Ennemi anim ---- */
+
+@keyframes counterDesktop {
+    0% {
+        transform: rotate(0deg) translateX(0);
+        filter: brightness(1);
+    }
+
+    30% {
+        transform: rotate(20deg) translateX(-200px);
+        filter: brightness(1.2);
+    }
+
+    60% {
+        transform: rotate(0deg) translateX(-600px);
+        filter: brightness(1.5);
+    }
+
+    100% {
+        transform: rotate(0deg) translateX(0);
+        filter: brightness(1);
+    }
+}
+
+@keyframes magicRayAnimEnnemyDesktop {
+    0% {
+        transform: translateY(50%) translateX(0) scale(1);
+        opacity: 1;
+        box-shadow: 0 0 10px #00f;
+    }
+
+    50% {
+        transform: translateY(50%) translateX(-250px) scale(2);
+        opacity: 1;
+        box-shadow: 0 0 20px #00f;
+    }
+
+    100% {
+        transform: translateY(50%) translateX(-600px) scale(2.5);
+        opacity: 0;
+        box-shadow: 0 0 0px #00f;
+    }
+}
+
+@keyframes attackSpeEnnemyDesktop {
+    0% {
+        transform: translateX(0) scale(1);
+        filter: brightness(1);
+    }
+
+    30% {
+        transform: translateX(-200px) scale(1.1);
+        filter: brightness(1.2);
+    }
+
+    60% {
+        transform: translateX(-600px) scale(1.2);
+        filter: brightness(1.5);
+    }
+
+    100% {
+        transform: translateX(0) scale(1);
+        filter: brightness(1);
+    }
+}
+
+@keyframes countCritAnimDesktop {
+    0% {
+        transform: scale(1) translateX(0);
+        opacity: 1;
+    }
+
+    30% {
+        transform: scale(1.2) translateX(0);
+    }
+
+    60% {
+        transform: scale(1.1) translateX(-600px);
+    }
+
+    80% {
+        transform: scale(1.2) translateX(-500px);
+    }
+
+    100% {
+        transform: scale(1) translateX(0);
     }
 }

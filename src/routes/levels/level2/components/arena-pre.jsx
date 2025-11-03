@@ -4,6 +4,7 @@ import { playerAtom } from "../../../../atom/atom.js";
 import dataEnnemy from "./../../../../data/data-ennemy.json";
 import { useState } from "react";
 import { executeEnnemyAttack, executePlayerAttack } from "../../../../engine/combat.engine.js";
+import { useNavigate } from "react-router";
 
 
 
@@ -26,38 +27,48 @@ export default function ArenaPreCard() {
     const [stopMatch, setStopMatch] = useState(false);
     const [matchResult, setMatchResult] = useState("");
 
+    // Navigate
+    const navigate = useNavigate();
+
     // ==== Animations className ====
     const playerAnimationClassName = {
-        normal: styles.attack,
+        force: styles.attack,
         critical: styles.criticalAttack,
-        attackSpe: styles.criticalAttack,
+        attackSpe: styles.attackSpe,
         escaped: styles.escape,
         heal: styles.healAnimation,
         magie: styles.magicAttack
     }[animating] || "";
     const ennemyAnimationClassName = {
-        normal: styles.counter,
+        force: styles.counter,
         critical: styles.countCrit,
-        attackSpe: styles.countCrit,
+        attackSpe: styles.countSpe,
         escaped: styles.escape,
         heal: styles.healAnimation,
-        magie: styles.magicAttack
+        magie: styles.countMag
     }[ennemyAnimating] || "";
 
     // ==== Fonctions animations ====
     function triggerAnimation(type = "normal") {
-        setAnimating(type);
+        setAnimating("");
 
-        setTimeout(() => {
-            setAnimating("");
-        }, 500);
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                setAnimating(type);
+            });
+        });
     }
-    function triggerEnnemyAnimation(type = "normal") {
-        setEnnemyAnimating(type);
-        setTimeout(() => {
-            setEnnemyAnimating("");
-        }, 500);
+
+    function triggerEnnemyAnimation(type = "force") {
+        setEnnemyAnimating("");
+
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                setEnnemyAnimating(type);
+            });
+        });
     }
+
 
     // ==== Calculer le % de vie et mana ====
     const playerViePercent = (player.vie / player.maxVie) * 100;
@@ -107,17 +118,22 @@ export default function ArenaPreCard() {
                 triggerEnnemyCounterAttack(result.defender, result.attacker);
             }, 1500);
         }
-
     }
 
     function triggerEnnemyCounterAttack(updatedEnnemy, updatedPlayer) {
+        // Si l'ennemi est déjà mort, inutile de contre-attaquer
+        if (updatedEnnemy.vie <= 0) {
+            console.warn("Contre-attaque annulée : ennemi déjà vaincu.");
+            return;
+        }
+
         const enemyResult = executeEnnemyAttack({
             attacker: updatedEnnemy,
             defender: updatedPlayer,
             onDialog: setEnnemyMessage,
             onEnnemyDialog: setPlayerMessage,
-            onAnimation: triggerEnnemyAnimation,
-            onEnnemyAnimation: triggerAnimation,
+            onAnimation: triggerAnimation,
+            onEnnemyAnimation: triggerEnnemyAnimation,
             onEndMatch: setMatchResult
         });
 
@@ -143,21 +159,42 @@ export default function ArenaPreCard() {
                 setEnnemy(getEnnemyById(3))
                 setStopMatch(false);
                 setMatchResult("");
+                setPlayer(prev => ({ ...prev, potions: prev.potions + 2 }));
+                player.potions += 2;
+                setPlayerMessage("");
+                setEnnemyMessage("");
 
                 break;
             case 3:
                 setEnnemy(getEnnemyById(1))
                 setStopMatch(false);
                 setMatchResult("");
+                setPlayer(prev => ({ ...prev, potions: prev.potions + 2 }));
+                setPlayerMessage("");
+                setEnnemyMessage("");
 
                 break;
 
             default:
-                // todo: mettre un navigate
+                setPlayer(prev => {
+                    const newMaxVie = prev.maxVie + 10;
+                    const newMaxMana = prev.maxMana + 20;
+
+                    return {
+                        ...prev,
+                        maxVie: newMaxVie,
+                        maxMana: newMaxMana,
+                        vie: newMaxVie,
+                        mana: newMaxMana,
+                        force: prev.force + 5,
+                        magie: prev.magie + 5,
+                        dexterite: prev.dexterite + 2,
+                    };
+                })
+                navigate("/versLevel2")
                 break;
         }
     }
-
 
 
     return (
@@ -168,11 +205,21 @@ export default function ArenaPreCard() {
                     <div className={styles.log_en}>{ennemyMessage}</div>
                 </div>
                 <div className={styles.animation_zone}>
+                    {/* // ____Player___ */}
                     <div className={`${styles.player} ${playerAnimationClassName}`}>
                         <img src={player.avatar} alt={`Avatar de ${player.nom}`} />
+                        {animating === "magie" && <span className={styles.magicRay}></span>}
+                        {animating === "attackSpe" && (
+                            <span className={styles.attackSpeGlow}></span>
+                        )}
                     </div>
+                    {/* // ____Ennemy____ */}
                     <div className={`${styles.ennemy} ${ennemyAnimationClassName}`}>
                         <img src={ennemy.avatar} alt={`Avatar de ${ennemy.nom}`} />
+                        {ennemyAnimating === "magie" && <span className={styles.magicRayEnnemy}></span>}
+                        {ennemyAnimating === "attackSpe" && (
+                            <span className={styles.attackSpeGlowEnnemy}></span>
+                        )}
                     </div>
                 </div>
                 <div className={styles.control_panel}>
@@ -192,7 +239,7 @@ export default function ArenaPreCard() {
                     </div>
                     <button onClick={() => handlePlayerAction("force")} disabled={stopMatch}>Attaque</button>
                     <button onClick={() => handlePlayerAction("magie")} disabled={stopMatch}>Att. magique</button>
-                    <button onClick={() => handlePlayerAction("attackSpe")} disabled={stopMatch}>Att. spe.</button>
+                    <button onClick={() => handlePlayerAction("attackSpe")} disabled={stopMatch}>Att. spe. [{player.attackSpeNb}]</button>
                     <button onClick={() => handlePlayerAction("heal")}>Potions</button>
                 </div>
                 {stopMatch && (
@@ -204,7 +251,10 @@ export default function ArenaPreCard() {
                                     ? "💀 Défaite..."
                                     : "⏳ Résultat inconnu"}</h2>
                             <p>Le combat est terminé.</p>
-                            <button onClick={handleNextOpponent}>Adversaire suivant</button>
+                            <h4>+ 2 potions ✨</h4>
+                            <button onClick={handleNextOpponent}>
+                                {ennemy.id === 1 ? "Suite" : "Adversaire suivant"}
+                            </button>
                         </div>
                     </div>
                 )}

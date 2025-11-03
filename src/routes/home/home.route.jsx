@@ -23,10 +23,7 @@ export default function HomeRoute() {
                 ...prev,
                 nom: value
             }));
-        };
-        // todo: debug
-        console.log("Pseudo mis à jour?", value);
-        
+        };       
     };
     // Class management
     function handleChangeClass(classe) {
@@ -60,16 +57,8 @@ export default function HomeRoute() {
 
         setErrorMsg("");
         setPlayerCharacter(playerBuild);
-        navigate("/config");
-
-        // Todo: debug
-        console.log("player info dans handleSubmit", playerBuild);
-        console.log("Formulaire validé !");
-        
+        navigate("/config");        
     }
-
-    // todo: debug
-    console.log("playerBuild", playerBuild);
 
     return (
         <div className="page">

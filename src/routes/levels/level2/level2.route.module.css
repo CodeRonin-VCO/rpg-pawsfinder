@@ -143,13 +143,13 @@
 
 @keyframes walkAcrossDesktop {
     0% {
-        top: 60%;
+        top: 62%;
         left: -10%;
         opacity: 1;
     }
 
     100% {
-        top: 50%;
+        top: 52%;
         left: 100%;
         opacity: 1;
     }

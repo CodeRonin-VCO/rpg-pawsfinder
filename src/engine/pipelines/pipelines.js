@@ -1,5 +1,4 @@
-import { aiActions } from "../steps/ai.steps.js";
-import { animateCharacter, applyDamage, calculateDamage, criticalHit, endMatchCheck, escapedCheck, generateDialog, heal } from "../steps/player.steps.js";
+import { applyDamage, calculateDamage, criticalHit, endMatchCheck, escapedCheck, heal } from "../steps/player.steps.js";
 
 
 export function playerPipeline(ctx) {
@@ -11,12 +10,8 @@ export function playerPipeline(ctx) {
         if (ctx.interrupt) return ctx; // Interruption si pas de mana/attaques spéciales
 
         ctx = escapedCheck(ctx);
-        if (ctx.escaped) return ctx; // Si esquive, on arrête ici
-
         ctx = criticalHit(ctx);
         ctx = applyDamage(ctx);
-
-        ctx.events = [...(ctx.events || []), ...(ctx.events || [])]
     }
 
     // 2. Vérification de fin de match
@@ -37,19 +32,29 @@ export function handleEvents(ctx) {
                     }
                     break;
                 case "animation":
-                    if (event.target === "defender") {
-                        ctx.onEnnemyAnimation?.(event.payload);
-                    } else {
+                    const targetCharacter =
+                        event.target === "attacker" ? ctx.attacker : ctx.defender;
+
+                    const targetIsPlayer = targetCharacter.isPlayer;
+                    const targetName = targetCharacter.nom;
+
+                    console.log(`[ANIMATION] ${event.payload} → ${targetIsPlayer ? "Joueur" : "Ennemi"} (${targetName})`);
+
+                    if (targetIsPlayer) {
                         ctx.onAnimation?.(event.payload);
+                    } else {
+                        ctx.onEnnemyAnimation?.(event.payload);
                     }
+
                     break;
+
                 default:
                     break;
             }
         });
 
         // Todo: debug
-        console.log("Événements déclenchés :", ctx.events);
+        // console.log("Événements déclenchés :", ctx.events);
 
     }
 
@@ -57,17 +62,20 @@ export function handleEvents(ctx) {
 };
 
 export function ennemyPipeline(ctx) {
-    // 1. Calcul des dégâts (l'ennemi n'utilise pas de soin dans cet exemple)
+    const action = ctx.actions[0];
+
+    if (action.type === "heal") {
+        ctx = heal(ctx);
+        ctx = endMatchCheck(ctx);
+        return ctx;
+    }
+
     ctx = calculateDamage(ctx, ctx.actions[0].methode);
     if (ctx.interrupt) return ctx;
 
     ctx = escapedCheck(ctx);
-    if (ctx.escaped) return ctx;
-
     ctx = criticalHit(ctx);
     ctx = applyDamage(ctx);
-
-    // 2. Vérification de fin de match
     ctx = endMatchCheck(ctx);
 
     return ctx;
