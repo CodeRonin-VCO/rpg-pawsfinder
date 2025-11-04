@@ -4,4 +4,7 @@ import react from '@vitejs/plugin-react-swc';
 export default defineConfig({
   plugins: [react()],
   base: process.env.NODE_ENV === 'production' ? '/rpg-pawsfinder/' : '/',
+  build: {
+    sourcemap: false, // Désactive les source maps en production
+  },
 });
