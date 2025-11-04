@@ -5,11 +5,11 @@
     margin: auto;
     position: relative;
     overflow: hidden;
-    background: url("./../../../../public/bg/level1/bg-route-mobile.png") no-repeat center/contain;
+    background: url("./../../../assets/level-bg/bg-pre-mobile.png") no-repeat center/contain;
 
     @media screen and (min-width:960px) {
         width: 1000px;
-        background: url("./../../../../public/bg/level1/bg-route.png") no-repeat center/contain;
+        background: url("./../../../assets/level-bg/bg-route.png") no-repeat center/contain;
     }
 }
 
@@ -56,11 +56,11 @@
     width: 100%;
     margin: auto;
     position: relative;
-    background: url("./../../../../public/bg/level1/bg-ennemi-mobile.png") no-repeat center/contain;
+    background: url("./../../../assets/level-bg/bg-ennemi-mobile.png") no-repeat center/contain;
 
     @media screen and (min-width:960px) {
         width: 1000px;
-        background: url("./../../../../public/bg/level1/bg-ennemi.png") no-repeat center/contain;
+        background: url("./../../../assets/level-bg/bg-ennemi.png") no-repeat center/contain;
     }
 
     .title {

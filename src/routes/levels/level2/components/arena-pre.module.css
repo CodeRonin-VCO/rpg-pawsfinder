@@ -4,11 +4,11 @@
     width: 100%;
     margin: auto;
     position: relative;
-    background: url("./../../../../public/bg/level1/bg-pre-mobile.png") no-repeat center/contain;
+    background: url("./../../../../assets/level-bg/bg-pre-mobile.png") no-repeat center/contain;
 
     @media screen and (min-width:960px) {
         width: 1000px;
-        background: url("./../../../../public/bg/level1/bg-pre.png") no-repeat center/contain;
+        background: url("./../../../../assets/level-bg/bg-pre.png") no-repeat center/contain;
     }
 }
 

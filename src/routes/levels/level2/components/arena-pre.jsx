@@ -5,6 +5,7 @@ import dataEnnemy from "./../../../../data/data-ennemy.json";
 import { useState } from "react";
 import { executeEnnemyAttack, executePlayerAttack } from "../../../../engine/combat.engine.js";
 import { useNavigate } from "react-router";
+import { getAssetPath } from "../../../../utils/getAssetsPath.js";
 
 
 
@@ -215,7 +216,7 @@ export default function ArenaPreCard() {
                     </div>
                     {/* // ____Ennemy____ */}
                     <div className={`${styles.ennemy} ${ennemyAnimationClassName}`}>
-                        <img src={ennemy.avatar} alt={`Avatar de ${ennemy.nom}`} />
+                        <img src={getAssetPath(ennemy.avatar)} alt={`Avatar de ${ennemy.nom}`} />
                         {ennemyAnimating === "magie" && <span className={styles.magicRayEnnemy}></span>}
                         {ennemyAnimating === "attackSpe" && (
                             <span className={styles.attackSpeGlowEnnemy}></span>
